@@ -27,7 +27,7 @@ const HeroSection = () => {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pb-40">
         <div className={`transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Find Your
@@ -42,8 +42,11 @@ const HeroSection = () => {
         </div>
 
         <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <button className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <button 
+              onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-gold-500 hover:bg-gold-600 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            >
               Explore Properties
             </button>
             <button className="border-2 border-white text-white hover:bg-white hover:text-navy-600 px-8 py-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2">

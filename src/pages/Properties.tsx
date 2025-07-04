@@ -1,11 +1,11 @@
-
-import React, { useState, useEffect } from 'react';
-import { MapPin, Bed, Bath, Square, Heart, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Bed, Bath, Square, Heart, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-const PropertiesSection = () => {
+const Properties = () => {
   const [activeFilter, setActiveFilter] = useState('All');
-  const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
   const filters = ['All', 'For Sale', 'For Rent', 'Luxury'];
 
@@ -96,31 +96,6 @@ const PropertiesSection = () => {
         property.type === activeFilter || property.category === activeFilter
       );
 
-  const itemsPerSlide = 3;
-  const maxSlides = Math.ceil(filteredProperties.length / itemsPerSlide);
-
-  // Auto-slide functionality
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % maxSlides);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [maxSlides]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % maxSlides);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + maxSlides) % maxSlides);
-  };
-
-  const getCurrentSlideProperties = () => {
-    const startIndex = currentSlide * itemsPerSlide;
-    return filteredProperties.slice(startIndex, startIndex + itemsPerSlide);
-  };
-
   const PropertyCard = ({ property }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [liked, setLiked] = useState(property.isLiked);
@@ -144,7 +119,6 @@ const PropertiesSection = () => {
           />
           <div className={`absolute inset-0 bg-black/20 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
           
-          {/* Property Type Badge */}
           <div className="absolute top-4 left-4">
             <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
               property.type === 'For Sale' 
@@ -155,7 +129,6 @@ const PropertiesSection = () => {
             </span>
           </div>
 
-          {/* Action Buttons */}
           <div className={`absolute top-4 right-4 flex space-x-2 transition-all duration-300 ${
             isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
           }`}>
@@ -178,7 +151,6 @@ const PropertiesSection = () => {
             </button>
           </div>
 
-          {/* Price */}
           <div className="absolute bottom-4 left-4">
             <span className="bg-gold-500 text-white px-3 py-1 rounded-lg font-bold text-lg">
               {property.price}
@@ -215,98 +187,49 @@ const PropertiesSection = () => {
   };
 
   return (
-    <section id="properties" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-navy-600 mb-4 animate-fade-in-up">
-            Featured Properties
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Discover our handpicked selection of premium properties in the most sought-after locations
-          </p>
-        </div>
-
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {filters.map((filter, index) => (
-            <button
-              key={filter}
-              onClick={() => {
-                setActiveFilter(filter);
-                setCurrentSlide(0);
-              }}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 animate-fade-in ${
-                activeFilter === filter
-                  ? 'bg-gold-500 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-navy-600 hover:text-white'
-              }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
-
-        {/* Properties Carousel */}
-        <div className="relative">
-          <div className="overflow-hidden">
-            <div 
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {Array.from({ length: maxSlides }, (_, slideIndex) => (
-                <div key={slideIndex} className="min-w-full">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {filteredProperties
-                      .slice(slideIndex * itemsPerSlide, (slideIndex + 1) * itemsPerSlide)
-                      .map((property) => (
-                        <PropertyCard key={property.id} property={property} />
-                      ))}
-                  </div>
-                </div>
-              ))}
-            </div>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      <main className="pt-24">
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-navy-600 mb-4">
+              All Properties
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Browse our complete collection of premium properties
+            </p>
           </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-navy-600 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-navy-600 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
-          >
-            <ChevronRight size={24} />
-          </button>
-
-          {/* Slide Indicators */}
-          <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: maxSlides }, (_, index) => (
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {filters.map((filter) => (
               <button
-                key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide ? 'bg-gold-500' : 'bg-gray-300'
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
+                  activeFilter === filter
+                    ? 'bg-gold-500 text-white shadow-lg'
+                    : 'bg-white text-gray-600 hover:bg-navy-600 hover:text-white'
                 }`}
-              />
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          {/* Properties Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProperties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
             ))}
           </div>
         </div>
-
-        <div className="text-center mt-12">
-          <button 
-            onClick={() => navigate('/properties')}
-            className="bg-navy-600 hover:bg-navy-700 text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
-          >
-            View All Properties
-          </button>
-        </div>
-      </div>
-    </section>
+      </main>
+      
+      <Footer />
+    </div>
   );
 };
 
-export default PropertiesSection;
+export default Properties;

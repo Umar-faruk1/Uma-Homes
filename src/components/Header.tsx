@@ -1,6 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,35 +81,48 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className={`md:hidden transition-colors duration-300 ${
-              isScrolled ? 'text-navy-600' : 'text-white'
-            }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMobileMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
-        }`}>
-          <div className="pt-4 pb-2">
-            {navItems.map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className={`block py-2 font-medium transition-colors hover:text-gold-500 ${
+          {/* Mobile Menu Button with Sidebar */}
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <button
+                className={`md:hidden transition-colors duration-300 ${
                   isScrolled ? 'text-navy-600' : 'text-white'
                 }`}
-                onClick={() => setIsMobileMenuOpen(false)}
               >
-                {item}
-              </a>
-            ))}
-          </div>
+                <Menu size={24} />
+              </button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] bg-navy-600 text-white border-l-0">
+              <div className="flex flex-col space-y-6 mt-8">
+                <div className="text-2xl font-bold mb-6">
+                  <span className="text-white">LIVE</span>
+                  <span className="text-gold-500">STA</span>
+                </div>
+                {navItems.map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className="text-lg font-medium text-white hover:text-gold-500 transition-colors py-2 border-b border-white/10"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item}
+                  </a>
+                ))}
+                <div className="pt-6 border-t border-white/20">
+                  <div className="flex flex-col space-y-4 text-sm">
+                    <div className="flex items-center space-x-2">
+                      <Phone size={16} />
+                      <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Mail size={16} />
+                      <span>info@livesta.com</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </nav>
     </header>
