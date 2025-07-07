@@ -8,6 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import AddListingModal from '@/components/modals/AddListingModal';
 
 const AgentHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,10 +56,7 @@ const AgentHeader = () => {
             ))}
             
             <div className="flex items-center space-x-4">
-              <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white">
-                <Plus size={16} className="mr-2" />
-                Add Listing
-              </Button>
+              <AddListingModal />
               <Link to="/agent/analytics">
                 <Button variant="outline" size="sm" className="border-navy-600 text-navy-600 hover:bg-navy-600 hover:text-white">
                   <BarChart3 size={16} className="mr-2" />
@@ -105,10 +103,9 @@ const AgentHeader = () => {
                 ))}
                 
                 <div className="pt-6 border-t border-white/20 space-y-3">
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    <Plus size={16} className="mr-2" />
-                    Add Listing
-                  </Button>
+                  <div onClick={() => setIsMobileMenuOpen(false)}>
+                    <AddListingModal />
+                  </div>
                   <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-navy-600">
                     <BarChart3 size={16} className="mr-2" />
                     Analytics

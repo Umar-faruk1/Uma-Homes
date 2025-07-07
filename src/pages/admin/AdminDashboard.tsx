@@ -1,13 +1,11 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import Header from '@/components/Header';
+import AdminHeader from '@/components/headers/AdminHeader';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
-  // Mock data for admin overview
   const systemStats = {
     totalUsers: 1247,
     totalAgents: 89,
@@ -32,9 +30,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <AdminHeader />
       
-      <main className="flex-1 bg-gray-50 py-8">
+      <main className="flex-1 bg-gray-50 py-8 pt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-navy-600 mb-2">Admin Dashboard</h1>
