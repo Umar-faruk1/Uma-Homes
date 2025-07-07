@@ -1,250 +1,129 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Header from '@/components/Header';
+import AdminHeader from '@/components/headers/AdminHeader';
 import Footer from '@/components/Footer';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
+import { TrendingUp, Users, Building, DollarSign, Activity } from 'lucide-react';
 
 const AdminAnalytics = () => {
-  // Mock analytics data
-  const platformStats = {
-    totalRevenue: 2450000,
-    monthlyGrowth: 15.3,
-    userGrowth: 8.2,
-    agentGrowth: 12.5,
-    propertyGrowth: 18.7,
-    conversionRate: 12.8
-  };
-
   const monthlyData = [
-    { month: 'Jan', users: 850, agents: 45, properties: 320, revenue: 185000 },
-    { month: 'Feb', users: 920, agents: 52, properties: 380, revenue: 220000 },
-    { month: 'Mar', users: 1050, agents: 63, properties: 445, revenue: 285000 },
-    { month: 'Apr', users: 1180, agents: 71, properties: 495, revenue: 325000 },
-    { month: 'May', users: 1280, agents: 82, properties: 540, revenue: 380000 },
-    { month: 'Jun', users: 1380, agents: 89, properties: 567, revenue: 425000 }
+    { month: 'Jan', users: 120, properties: 45, revenue: 85000 },
+    { month: 'Feb', users: 135, properties: 52, revenue: 92000 },
+    { month: 'Mar', users: 148, properties: 58, revenue: 105000 },
+    { month: 'Apr', users: 162, properties: 64, revenue: 118000 },
+    { month: 'May', users: 178, properties: 71, revenue: 125000 },
+    { month: 'Jun', users: 195, properties: 78, revenue: 142000 },
   ];
 
-  const topPerformingAgents = [
-    { name: "Sarah Johnson", listings: 25, sales: 8, revenue: 85000 },
-    { name: "Mike Smith", listings: 22, sales: 6, revenue: 72000 },
-    { name: "Lisa Williams", listings: 18, sales: 5, revenue: 58000 },
-    { name: "John Davis", listings: 16, sales: 4, revenue: 45000 },
-    { name: "Emma Brown", listings: 14, sales: 3, revenue: 38000 }
+  const propertyTypes = [
+    { name: 'Houses', value: 45, color: '#1a365d' },
+    { name: 'Apartments', value: 30, color: '#d4af37' },
+    { name: 'Villas', value: 15, color: '#2d5a87' },
+    { name: 'Condos', value: 10, color: '#b8860b' },
   ];
 
-  const topCities = [
-    { city: "Beverly Hills", properties: 89, avgPrice: "$2,100,000" },
-    { city: "Santa Monica", properties: 76, avgPrice: "$1,800,000" },
-    { city: "Manhattan Beach", properties: 54, avgPrice: "$2,500,000" },
-    { city: "Pasadena", properties: 67, avgPrice: "$950,000" },
-    { city: "West Hollywood", properties: 43, avgPrice: "$1,200,000" }
+  const stats = [
+    { title: 'Total Revenue', value: '$2.4M', change: '+12%', icon: DollarSign, color: 'text-green-600' },
+    { title: 'Active Users', value: '1,234', change: '+8%', icon: Users, color: 'text-blue-600' },
+    { title: 'Properties Listed', value: '456', change: '+15%', icon: Building, color: 'text-purple-600' },
+    { title: 'Monthly Growth', value: '23%', change: '+5%', icon: TrendingUp, color: 'text-gold-500' },
   ];
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      <AdminHeader />
       
-      <main className="flex-1 bg-gray-50 py-8">
+      <main className="flex-1 bg-gray-50 py-8 pt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-navy-600 mb-2">Platform Analytics</h1>
-            <p className="text-gray-600">Comprehensive business intelligence and insights</p>
+            <h1 className="text-3xl font-bold text-navy-600 mb-2">Analytics Dashboard</h1>
+            <p className="text-gray-600">Platform performance and insights</p>
           </div>
 
-          {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {stats.map((stat) => (
+              <Card key={stat.title}>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                      <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                      <p className="text-sm text-green-600">{stat.change} from last month</p>
+                    </div>
+                    <stat.icon className={`h-8 w-8 ${stat.color}`} />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            {/* Monthly Trends */}
             <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">Total Revenue</p>
-                  <p className="text-3xl font-bold text-navy-600">
-                    ${platformStats.totalRevenue.toLocaleString()}
-                  </p>
-                  <p className="text-sm text-green-600">+{platformStats.monthlyGrowth}% this month</p>
-                </div>
+              <CardHeader>
+                <CardTitle>Monthly Trends</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={monthlyData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="users" stroke="#1a365d" strokeWidth={2} />
+                    <Line type="monotone" dataKey="properties" stroke="#d4af37" strokeWidth={2} />
+                  </LineChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
 
+            {/* Property Types Distribution */}
             <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">User Growth</p>
-                  <p className="text-3xl font-bold text-navy-600">+{platformStats.userGrowth}%</p>
-                  <p className="text-sm text-green-600">Monthly increase</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">Agent Growth</p>
-                  <p className="text-3xl font-bold text-navy-600">+{platformStats.agentGrowth}%</p>
-                  <p className="text-sm text-green-600">Monthly increase</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">Property Growth</p>
-                  <p className="text-3xl font-bold text-navy-600">+{platformStats.propertyGrowth}%</p>
-                  <p className="text-sm text-green-600">Monthly increase</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">Conversion Rate</p>
-                  <p className="text-3xl font-bold text-navy-600">{platformStats.conversionRate}%</p>
-                  <p className="text-sm text-green-600">Inquiry to sale</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <p className="text-sm font-medium text-gray-600">Avg. Commission</p>
-                  <p className="text-3xl font-bold text-navy-600">$12,500</p>
-                  <p className="text-sm text-blue-600">Per transaction</p>
-                </div>
+              <CardHeader>
+                <CardTitle>Property Types</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={propertyTypes}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={100}
+                      fill="#8884d8"
+                      dataKey="value"
+                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    >
+                      {propertyTypes.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </div>
 
-          {/* Monthly Growth Chart */}
-          <Card className="mb-8">
+          {/* Revenue Chart */}
+          <Card>
             <CardHeader>
-              <CardTitle>Monthly Platform Growth</CardTitle>
+              <CardTitle>Monthly Revenue</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-semibold text-navy-600 mb-4">Users & Agents</h4>
-                  <div className="space-y-4">
-                    {monthlyData.map((data) => (
-                      <div key={data.month} className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600 w-12">{data.month}</span>
-                        <div className="flex items-center space-x-4 flex-1 ml-4">
-                          <div className="flex items-center space-x-2 flex-1">
-                            <div className="w-24 bg-gray-200 rounded-full h-2">
-                              <div 
-                                className="bg-navy-600 h-2 rounded-full" 
-                                style={{ width: `${(data.users / 1500) * 100}%` }}
-                              ></div>
-                            </div>
-                            <span className="text-sm text-navy-600 w-16">{data.users} users</span>
-                          </div>
-                          <div className="flex items-center space-x-2 flex-1">
-                            <div className="w-24 bg-gray-200 rounded-full h-2">
-                              <div 
-                                className="bg-gold-500 h-2 rounded-full" 
-                                style={{ width: `${(data.agents / 100) * 100}%` }}
-                              ></div>
-                            </div>
-                            <span className="text-sm text-gold-500 w-16">{data.agents} agents</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold text-navy-600 mb-4">Properties & Revenue</h4>
-                  <div className="space-y-4">
-                    {monthlyData.map((data) => (
-                      <div key={data.month} className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-600 w-12">{data.month}</span>
-                        <div className="flex items-center space-x-4 flex-1 ml-4">
-                          <div className="flex items-center space-x-2 flex-1">
-                            <div className="w-24 bg-gray-200 rounded-full h-2">
-                              <div 
-                                className="bg-green-600 h-2 rounded-full" 
-                                style={{ width: `${(data.properties / 600) * 100}%` }}
-                              ></div>
-                            </div>
-                            <span className="text-sm text-green-600 w-20">{data.properties} props</span>
-                          </div>
-                          <div className="flex items-center space-x-2 flex-1">
-                            <div className="w-24 bg-gray-200 rounded-full h-2">
-                              <div 
-                                className="bg-purple-600 h-2 rounded-full" 
-                                style={{ width: `${(data.revenue / 500000) * 100}%` }}
-                              ></div>
-                            </div>
-                            <span className="text-sm text-purple-600 w-20">${(data.revenue / 1000).toFixed(0)}k</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis />
+                  <Tooltip formatter={(value) => [`$${value.toLocaleString()}`, 'Revenue']} />
+                  <Bar dataKey="revenue" fill="#d4af37" />
+                </BarChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Top Performing Agents */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Top Performing Agents</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {topPerformingAgents.map((agent, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <p className="font-medium text-navy-600">{agent.name}</p>
-                          <p className="text-sm text-gray-600">{agent.listings} listings • {agent.sales} sales</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold text-gold-500">${agent.revenue.toLocaleString()}</p>
-                        <p className="text-xs text-gray-500">commission</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Top Cities */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Top Cities by Activity</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {topCities.map((city, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gold-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <p className="font-medium text-navy-600">{city.city}</p>
-                          <p className="text-sm text-gray-600">{city.properties} properties</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold text-green-600">{city.avgPrice}</p>
-                        <p className="text-xs text-gray-500">avg price</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </main>
       

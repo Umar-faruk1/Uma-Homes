@@ -1,13 +1,27 @@
 
 import React, { useEffect, useState } from 'react';
 import { ChevronDown, Play, Search, MapPin, Home, DollarSign } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [location, setLocation] = useState('');
+  const [propertyType, setPropertyType] = useState('');
+  const [priceRange, setPriceRange] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
+
+  const handleSearch = () => {
+    const searchParams = new URLSearchParams();
+    if (location) searchParams.append('location', location);
+    if (propertyType) searchParams.append('type', propertyType);
+    if (priceRange) searchParams.append('price', priceRange);
+    
+    navigate(`/properties?${searchParams.toString()}`);
+  };
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -21,27 +35,27 @@ const HeroSection = () => {
 
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-20 h-20 bg-gold-500/10 rounded-full animate-float"></div>
-        <div className="absolute top-40 right-20 w-16 h-16 bg-white/5 rounded-full animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-32 left-20 w-24 h-24 bg-gold-500/5 rounded-full animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-20 left-10 w-20 h-20 bg-gold-500/10 rounded-full animate-bounce"></div>
+        <div className="absolute top-40 right-20 w-16 h-16 bg-white/5 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-32 left-20 w-24 h-24 bg-gold-500/5 rounded-full animate-bounce" style={{ animationDelay: '2s' }}></div>
       </div>
 
       {/* Hero Content */}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pb-40">
-        <div className={`transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`transition-all duration-1000 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Find Your
-            <span className="block text-gold-500">Dream Home</span>
+            <span className="block text-gold-500 animate-pulse">Dream Home</span>
           </h1>
         </div>
         
-        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
             Discover luxury properties in the most desirable locations. Your perfect home is just a click away.
           </p>
         </div>
 
-        <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+        <div className={`transition-all duration-1000 delay-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <button 
               onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
@@ -58,36 +72,52 @@ const HeroSection = () => {
       </div>
 
       {/* Property Search Bar */}
-      <div className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}>
+      <div className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
         <div className="bg-white/95 backdrop-blur-md rounded-xl p-6 shadow-2xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
               <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
                 type="text"
-                placeholder="Location"
+                placeholder="Enter location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500"
               />
             </div>
             <div className="relative">
               <Home className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <select className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 appearance-none">
-                <option>Property Type</option>
-                <option>House</option>
-                <option>Apartment</option>
-                <option>Villa</option>
+              <select 
+                value={propertyType}
+                onChange={(e) => setPropertyType(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 appearance-none bg-white"
+              >
+                <option value="">Property Type</option>
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="villa">Villa</option>
+                <option value="condo">Condo</option>
+                <option value="townhouse">Townhouse</option>
               </select>
             </div>
             <div className="relative">
               <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              <select className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 appearance-none">
-                <option>Price Range</option>
-                <option>$0 - $500k</option>
-                <option>$500k - $1M</option>
-                <option>$1M+</option>
+              <select 
+                value={priceRange}
+                onChange={(e) => setPriceRange(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 appearance-none bg-white"
+              >
+                <option value="">Price Range</option>
+                <option value="0-500000">$0 - $500k</option>
+                <option value="500000-1000000">$500k - $1M</option>
+                <option value="1000000-2000000">$1M - $2M</option>
+                <option value="2000000+">$2M+</option>
               </select>
             </div>
-            <button className="bg-navy-600 hover:bg-navy-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2">
+            <button 
+              onClick={handleSearch}
+              className="bg-navy-600 hover:bg-navy-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+            >
               <Search size={20} />
               Search
             </button>
