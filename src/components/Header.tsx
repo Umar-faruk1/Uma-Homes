@@ -32,14 +32,12 @@ const Header = () => {
 
   // Mock user state - in real app, this would come from auth context
   const isLoggedIn = false; // Change to true to see logged-in state
-  const userType: 'user' | 'agent' | 'admin' = 'user'; // Fixed typing
+  const userType: 'user' | 'agent' | 'admin' = 'user';
 
   const getDashboardLink = () => {
-    switch (userType) {
-      case 'agent': return '/agent/dashboard';
-      case 'admin': return '/admin/dashboard';
-      default: return '/dashboard';
-    }
+    if (userType === 'agent') return '/agent/dashboard';
+    if (userType === 'admin') return '/admin/dashboard';
+    return '/dashboard';
   };
 
   return (
