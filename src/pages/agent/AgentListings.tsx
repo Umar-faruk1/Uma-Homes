@@ -1,9 +1,11 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { ImageUpload } from '@/components/ui/image-upload';
 import { useForm } from 'react-hook-form';
 import AgentHeader from '@/components/headers/AgentHeader';
 import Footer from '@/components/Footer';
@@ -19,11 +21,16 @@ interface ListingForm {
   city: string;
   state: string;
   zipCode: string;
+  images: File[];
 }
 
 const AgentListings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const form = useForm<ListingForm>();
+  const form = useForm<ListingForm>({
+    defaultValues: {
+      images: []
+    }
+  });
 
   // Mock listings data
   const listings = [
@@ -69,10 +76,14 @@ const AgentListings = () => {
   ];
 
   const onSubmit = (data: ListingForm) => {
-    console.log('New listing:', data);
+    console.log('New listing:', {
+      ...data,
+      imageCount: data.images.length,
+      imageNames: data.images.map(file => file.name)
+    });
     setIsDialogOpen(false);
     form.reset();
-    // TODO: Implement actual listing creation logic
+    // TODO: Implement actual listing creation logic with image upload
   };
 
   return (
@@ -93,13 +104,13 @@ const AgentListings = () => {
                   Add New Listing
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle>Create New Listing</DialogTitle>
                 </DialogHeader>
                 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                       control={form.control}
                       name="title"
@@ -240,6 +251,28 @@ const AgentListings = () => {
                         )}
                       />
                     </div>
+
+                    <FormField
+                      control={form.control}
+                      name="images"
+                      rules={{ 
+                        required: 'At least one image is required',
+                        validate: (value) => value.length > 0 || 'Please upload at least one image'
+                      }}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Property Images</FormLabel>
+                          <FormControl>
+                            <ImageUpload
+                              value={field.value}
+                              onChange={field.onChange}
+                              maxImages={10}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     
                     <div className="flex gap-4 pt-4">
                       <Button type="submit" className="bg-navy-600 hover:bg-navy-700">

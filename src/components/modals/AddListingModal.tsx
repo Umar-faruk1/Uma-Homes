@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { ImageUpload } from '@/components/ui/image-upload';
 import { Plus } from 'lucide-react';
 
 interface ListingForm {
@@ -21,17 +22,26 @@ interface ListingForm {
   bathrooms: number;
   sqft: number;
   description: string;
+  images: File[];
 }
 
 const AddListingModal = () => {
-  const form = useForm<ListingForm>();
+  const form = useForm<ListingForm>({
+    defaultValues: {
+      images: []
+    }
+  });
   const [open, setOpen] = React.useState(false);
 
   const onSubmit = (data: ListingForm) => {
-    console.log('New listing:', data);
+    console.log('New listing:', {
+      ...data,
+      imageCount: data.images.length,
+      imageNames: data.images.map(file => file.name)
+    });
     setOpen(false);
     form.reset();
-    // TODO: Implement actual listing creation logic
+    // TODO: Implement actual listing creation logic with image upload
   };
 
   return (
@@ -42,13 +52,13 @@ const AddListingModal = () => {
           Add Listing
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add New Property Listing</DialogTitle>
         </DialogHeader>
         
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
               control={form.control}
               name="title"
@@ -155,6 +165,28 @@ const AddListingModal = () => {
                       className="w-full min-h-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-500"
                       placeholder="Describe the property features, amenities, and highlights..."
                       {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="images"
+              rules={{ 
+                required: 'At least one image is required',
+                validate: (value) => value.length > 0 || 'Please upload at least one image'
+              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Property Images</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      value={field.value}
+                      onChange={field.onChange}
+                      maxImages={10}
                     />
                   </FormControl>
                   <FormMessage />
