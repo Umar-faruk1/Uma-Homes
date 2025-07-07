@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageUpload } from '@/components/ui/image-upload';
 import { useForm } from 'react-hook-form';
 import AgentHeader from '@/components/headers/AgentHeader';
@@ -21,6 +21,7 @@ interface ListingForm {
   city: string;
   state: string;
   zipCode: string;
+  propertyType: 'sale' | 'rent';
   images: File[];
 }
 
@@ -28,7 +29,8 @@ const AgentListings = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const form = useForm<ListingForm>({
     defaultValues: {
-      images: []
+      images: [],
+      propertyType: 'sale'
     }
   });
 
@@ -45,12 +47,13 @@ const AgentListings = () => {
       status: "Active",
       views: 245,
       inquiries: 8,
+      propertyType: "sale",
       image: "/placeholder.svg"
     },
     {
       id: 2,
       title: "Modern Condo Downtown",
-      price: "$850,000",
+      price: "$4,500/month",
       location: "Downtown LA, CA",
       bedrooms: 2,
       bathrooms: 2,
@@ -58,6 +61,7 @@ const AgentListings = () => {
       status: "Active",
       views: 189,
       inquiries: 5,
+      propertyType: "rent",
       image: "/placeholder.svg"
     },
     {
@@ -71,6 +75,7 @@ const AgentListings = () => {
       status: "Pending",
       views: 156,
       inquiries: 3,
+      propertyType: "sale",
       image: "/placeholder.svg"
     }
   ];
@@ -126,7 +131,30 @@ const AgentListings = () => {
                       )}
                     />
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="propertyType"
+                        rules={{ required: 'Property type is required' }}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Property Type</FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select type" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="sale">For Sale</SelectItem>
+                                <SelectItem value="rent">For Rent</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
                       <FormField
                         control={form.control}
                         name="price"
@@ -135,7 +163,7 @@ const AgentListings = () => {
                           <FormItem>
                             <FormLabel>Price</FormLabel>
                             <FormControl>
-                              <Input placeholder="$750,000" {...field} />
+                              <Input placeholder="$750,000 or $2,500/month" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -297,7 +325,12 @@ const AgentListings = () => {
                     alt={listing.title}
                     className="w-full h-48 object-cover"
                   />
-                  <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      listing.propertyType === 'sale' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800'
+                    }`}>
+                      For {listing.propertyType === 'sale' ? 'Sale' : 'Rent'}
+                    </span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                       listing.status === 'Active' ? 'bg-green-100 text-green-800' :
                       listing.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :

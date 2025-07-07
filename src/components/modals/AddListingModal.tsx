@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -11,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ImageUpload } from '@/components/ui/image-upload';
 import { Plus } from 'lucide-react';
 
@@ -22,13 +22,15 @@ interface ListingForm {
   bathrooms: number;
   sqft: number;
   description: string;
+  propertyType: 'sale' | 'rent';
   images: File[];
 }
 
 const AddListingModal = () => {
   const form = useForm<ListingForm>({
     defaultValues: {
-      images: []
+      images: [],
+      propertyType: 'sale'
     }
   });
   const [open, setOpen] = React.useState(false);
@@ -77,6 +79,29 @@ const AddListingModal = () => {
             <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
+                name="propertyType"
+                rules={{ required: 'Property type is required' }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Property Type</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="sale">For Sale</SelectItem>
+                        <SelectItem value="rent">For Rent</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="price"
                 rules={{ required: 'Price is required' }}
                 render={({ field }) => (
@@ -89,22 +114,22 @@ const AddListingModal = () => {
                   </FormItem>
                 )}
               />
-              
-              <FormField
-                control={form.control}
-                name="location"
-                rules={{ required: 'Location is required' }}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Los Angeles, CA" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             </div>
+            
+            <FormField
+              control={form.control}
+              name="location"
+              rules={{ required: 'Location is required' }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Location</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Los Angeles, CA" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             
             <div className="grid grid-cols-3 gap-4">
               <FormField
