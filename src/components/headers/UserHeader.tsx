@@ -36,8 +36,8 @@ const UserHeader = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/dashboard" className="text-2xl font-bold">
-            <span className="text-navy-600">LIVE</span>
-            <span className="text-gold-500">STA</span>
+            <span className="text-navy-600">UMA</span>
+            <span className="text-gold-500">HOMES</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -83,8 +83,8 @@ const UserHeader = () => {
             <SheetContent side="right" className="w-[280px] bg-navy-600 text-white border-l-0">
               <div className="flex flex-col space-y-6 mt-8">
                 <div className="text-2xl font-bold mb-6">
-                  <span className="text-white">LIVE</span>
-                  <span className="text-gold-500">STA</span>
+                  <span className="text-white">UMA</span>
+                  <span className="text-gold-500">HOMES</span>
                 </div>
                 
                 {navItems.map((item) => (

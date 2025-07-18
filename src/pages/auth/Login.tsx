@@ -30,7 +30,7 @@ const Login = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold text-navy-600">Sign In</CardTitle>
-            <p className="text-gray-600">Welcome back to LIVESTA</p>
+            <p className="text-gray-600">Welcome back to Uma Homes</p>
           </CardHeader>
           
           <CardContent>

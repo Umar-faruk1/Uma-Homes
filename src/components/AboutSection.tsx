@@ -26,13 +26,13 @@ const AboutSection = () => {
           {/* Left Content */}
           <div className="animate-slide-in-left">
             <h2 className="text-4xl md:text-5xl font-bold text-navy-600 mb-6">
-              About Livesta
+              About Uma Homes
             </h2>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              With over 15 years of experience in the real estate industry, Livesta has established itself as a trusted partner for buyers, sellers, and investors seeking premium properties.
+              With over 15 years of experience in the real estate industry, Uma Homes has established itself as a trusted partner for buyers, sellers, and investors seeking premium properties.
             </p>
             <p className="text-gray-600 mb-8 leading-relaxed">
-              Our team of experienced professionals combines market expertise with personalized service to deliver exceptional results. We understand that buying or selling a home is one of life's most important decisions, and we're here to guide you through every step of the process.
+              Our team of experienced professionals combines market expertise with personalized service to deUMAr exceptional results. We understand that buying or selling a home is one of life's most important decisions, and we're here to guide you through every step of the process.
             </p>
 
             {/* Features List */}

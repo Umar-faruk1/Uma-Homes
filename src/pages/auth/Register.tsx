@@ -34,7 +34,7 @@ const Register = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold text-navy-600">Create Account</CardTitle>
-            <p className="text-gray-600">Join LIVESTA today</p>
+            <p className="text-gray-600">Join Uma Homes today</p>
           </CardHeader>
           
           <CardContent>

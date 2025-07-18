@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 interface AgentProfileForm {
@@ -44,7 +43,7 @@ const AgentProfile = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+    
       
       <main className="flex-1 bg-gray-50 py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">

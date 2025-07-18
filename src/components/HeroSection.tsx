@@ -41,7 +41,7 @@ const HeroSection = () => {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pb-40">
+      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4 pb-40 mt-32">
         <div className={`transition-all duration-1000 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Find Your

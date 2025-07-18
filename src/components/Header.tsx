@@ -53,11 +53,11 @@ const Header = () => {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Phone size={14} />
-                <span>+1 (555) 123-4567</span>
+                <span>+233 557 190 530</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail size={14} />
-                <span>info@livesta.com</span>
+                <span>info@umahomes.com</span>
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-4">
@@ -78,8 +78,8 @@ const Header = () => {
           <Link to="/" className="text-2xl font-bold">
             <span className={`transition-colors duration-300 ${
               isScrolled ? 'text-navy-600' : 'text-white'
-            }`}>LIVE</span>
-            <span className="text-gold-500">STA</span>
+            }`}>UMA</span>
+            <span className="text-gold-500">HOMES</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -158,8 +158,8 @@ const Header = () => {
             <SheetContent side="right" className="w-[280px] bg-navy-600 text-white border-l-0">
               <div className="flex flex-col space-y-6 mt-8">
                 <div className="text-2xl font-bold mb-6">
-                  <span className="text-white">LIVE</span>
-                  <span className="text-gold-500">STA</span>
+                  <span className="text-white">UMA</span>
+                  <span className="text-gold-500">HOMES</span>
                 </div>
                 
                 {navItems.map((item) => (
@@ -219,11 +219,11 @@ const Header = () => {
                   <div className="flex flex-col space-y-4 text-sm">
                     <div className="flex items-center space-x-2">
                       <Phone size={16} />
-                      <span>+1 (555) 123-4567</span>
+                      <span>+233 557 190 530</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Mail size={16} />
-                      <span>info@livesta.com</span>
+                      <span>info@umahomes.com</span>
                     </div>
                   </div>
                 </div>

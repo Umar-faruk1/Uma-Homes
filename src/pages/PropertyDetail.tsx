@@ -30,8 +30,8 @@ const PropertyDetail = () => {
       features: ['Swimming Pool', 'Garage', 'Garden', 'Modern Kitchen', 'Master Suite', 'High Ceilings'],
       agent: {
         name: 'Sarah Johnson',
-        phone: '+1 (555) 123-4567',
-        email: 'sarah@livesta.com',
+        phone: '+233 557 190 530',
+        email: 'sarah@umahomes.com',
         image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'
       }
     }

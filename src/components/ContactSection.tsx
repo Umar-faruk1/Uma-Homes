@@ -34,13 +34,13 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: '+1 (555) 123-4567\n+1 (555) 987-6543',
+      details: '+233 557 190 530\n+233 557 190 530',
       color: 'text-green-500'
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: 'info@livesta.com\nsupport@livesta.com',
+      details: 'info@umahomes.com\nsupport@umahomes.com',
       color: 'text-red-500'
     },
     {

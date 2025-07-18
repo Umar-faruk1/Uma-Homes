@@ -37,7 +37,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="animate-fade-in-up">
             <div className="text-3xl font-bold mb-4">
-              <span className="text-white">LIVE</span>
+              <span className="text-white">UMA</span>
               <span className="text-gold-500">STA</span>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
@@ -108,13 +108,13 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="text-gold-500 flex-shrink-0" size={18} />
                 <a href="tel:+15551234567" className="text-gray-300 hover:text-gold-500 transition-colors">
-                  +1 (555) 123-4567
+                  +233 557 190 530
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="text-gold-500 flex-shrink-0" size={18} />
-                <a href="mailto:info@livesta.com" className="text-gray-300 hover:text-gold-500 transition-colors">
-                  info@livesta.com
+                <a href="mailto:info@umahome.com" className="text-gray-300 hover:text-gold-500 transition-colors">
+                  info@umahomes.com
                 </a>
               </div>
             </div>
@@ -142,7 +142,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-navy-500 mt-8 pt-8 text-center animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
           <p className="text-gray-400">
-            © 2024 Livesta Real Estate. All rights reserved. | 
+            © 2025 Uma Homes Real Estate. All rights reserved. | 
             <a href="#" className="hover:text-gold-500 transition-colors ml-1">Privacy Policy</a> | 
             <a href="#" className="hover:text-gold-500 transition-colors ml-1">Terms of Service</a>
           </p>
