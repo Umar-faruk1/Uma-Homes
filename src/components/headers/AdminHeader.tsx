@@ -37,7 +37,7 @@ const AdminHeader = () => {
         <div className="flex justify-between items-center">
           <Link to="/admin/dashboard" className="text-2xl font-bold">
             <span className="text-navy-600">UMA</span>
-            <span className="text-gold-500">STA</span>
+            <span className="text-gold-500">Homes</span>
             <span className="text-sm text-red-600 ml-2 flex items-center">
               <Shield size={16} className="mr-1" />
               Admin
