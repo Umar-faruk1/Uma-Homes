@@ -126,8 +126,6 @@ const AdminAnalytics = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

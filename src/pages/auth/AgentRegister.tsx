@@ -29,9 +29,7 @@ const AgentRegister = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      
+    <div className="min-h-screen flex flex-col">   
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <Card className="w-full max-w-2xl">
           <CardHeader className="text-center">

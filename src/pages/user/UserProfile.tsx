@@ -44,7 +44,7 @@ const UserProfile = () => {
       
       <main className="flex-1 bg-gray-50 py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl">
-          <div className="mb-8">
+          <div className="mb-8 mt-12">
             <h1 className="text-3xl font-bold text-navy-600 mb-2">Profile Settings</h1>
             <p className="text-gray-600">Manage your account information and preferences</p>
           </div>
@@ -192,8 +192,6 @@ const UserProfile = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

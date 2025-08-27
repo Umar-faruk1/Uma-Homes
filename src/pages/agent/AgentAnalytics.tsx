@@ -127,8 +127,6 @@ const AgentAnalytics = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

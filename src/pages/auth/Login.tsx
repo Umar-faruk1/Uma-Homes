@@ -1,12 +1,14 @@
 
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import Header from '@/components/Header';
+import { useAuth } from '@/contexts/AuthContext';
+import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 
 interface LoginForm {
@@ -16,15 +18,26 @@ interface LoginForm {
 
 const Login = () => {
   const form = useForm<LoginForm>();
+  const { login, loading } = useAuth();
+  const { toast } = useToast();
+  const [error, setError] = useState('');
 
-  const onSubmit = (data: LoginForm) => {
-    console.log('Login attempt:', data);
-    // TODO: Implement actual login logic
+  const onSubmit = async (data: LoginForm) => {
+    setError('');
+    const success = await login(data.email, data.password);
+    
+    if (!success) {
+      setError('Invalid email or password. Please try again.');
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       
       <main className="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <Card className="w-full max-w-md">
@@ -66,8 +79,18 @@ const Login = () => {
                   )}
                 />
                 
-                <Button type="submit" className="w-full bg-navy-600 hover:bg-navy-700">
-                  Sign In
+                {error && (
+                  <div className="text-red-500 text-sm text-center bg-red-50 p-3 rounded-md">
+                    {error}
+                  </div>
+                )}
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-navy-600 hover:bg-navy-700"
+                  disabled={loading}
+                >
+                  {loading ? 'Signing In...' : 'Sign In'}
                 </Button>
                 
                 <div className="text-center space-y-2">

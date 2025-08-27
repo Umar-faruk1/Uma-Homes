@@ -169,7 +169,6 @@ const AgentDashboard = () => {
         </div>
       </main>
       
-      <Footer />
     </div>
   );
 };

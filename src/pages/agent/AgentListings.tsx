@@ -376,8 +376,6 @@ const AgentListings = () => {
           </div>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

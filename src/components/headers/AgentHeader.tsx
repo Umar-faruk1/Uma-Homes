@@ -39,7 +39,6 @@ const AgentHeader = () => {
           <Link to="/agent/dashboard" className="text-2xl font-bold">
             <span className="text-navy-600">UMA</span>
             <span className="text-gold-500">Homes</span>
-            <span className="text-sm text-gray-600 ml-2">Agent</span>
           </Link>
 
           {/* Desktop Menu */}

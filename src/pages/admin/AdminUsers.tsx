@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import AdminHeader from '@/components/headers/AdminHeader';
 import UserManagementModal from '@/components/modals/UserManagementModal';
-import Footer from '@/components/Footer';
 import { Users, UserPlus, Shield, Activity } from 'lucide-react';
 
 const AdminUsers = () => {
@@ -95,8 +94,6 @@ const AdminUsers = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

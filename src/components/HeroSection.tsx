@@ -34,7 +34,7 @@ const HeroSection = () => {
       />
 
       {/* Animated Background Elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">  {/* Add z-0 here */}
         <div className="absolute top-20 left-10 w-20 h-20 bg-gold-500/10 rounded-full animate-bounce"></div>
         <div className="absolute top-40 right-20 w-16 h-16 bg-white/5 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
         <div className="absolute bottom-32 left-20 w-24 h-24 bg-gold-500/5 rounded-full animate-bounce" style={{ animationDelay: '2s' }}></div>
@@ -72,7 +72,7 @@ const HeroSection = () => {
       </div>
 
       {/* Property Search Bar */}
-      <div className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4 transition-all duration-1000 delay-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'} z-20`}> {/* Add z-20 here */}
         <div className="bg-white/95 backdrop-blur-md rounded-xl p-6 shadow-2xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="relative">
@@ -108,10 +108,10 @@ const HeroSection = () => {
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 appearance-none bg-white"
               >
                 <option value="">Price Range</option>
-                <option value="0-500000">$0 - $500k</option>
-                <option value="500000-1000000">$500k - $1M</option>
-                <option value="1000000-2000000">$1M - $2M</option>
-                <option value="2000000+">$2M+</option>
+                <option value="0-500000">GH₵0 - GH₵500k</option>
+                <option value="500000-1000000">GH₵500k - GH₵1M</option>
+                <option value="1000000-2000000">GH₵1M - GH₵2M</option>
+                <option value="2000000+">GH₵2M+</option>
               </select>
             </div>
             <button 

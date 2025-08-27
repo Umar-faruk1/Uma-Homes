@@ -277,8 +277,6 @@ const AdminProperties = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

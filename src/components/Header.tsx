@@ -8,6 +8,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,13 +31,11 @@ const Header = () => {
     { name: 'Contact', href: '#contact' }
   ];
 
-  // Mock user state - in real app, this would come from auth context
-  const isLoggedIn = false; // Change to true to see logged-in state
-  const [userType] = useState<'user' | 'agent' | 'admin'>('user');
+  const { user, isAuthenticated, logout } = useAuth();
 
   const getDashboardLink = () => {
-    if (userType === 'agent') return '/agent/dashboard';
-    if (userType === 'admin') return '/admin/dashboard';
+    if (user?.type === 'agent') return '/agent/dashboard';
+    if (user?.type === 'admin') return '/admin/dashboard';
     return '/dashboard';
   };
 
@@ -99,7 +98,7 @@ const Header = () => {
             
             {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
-              {isLoggedIn ? (
+              {isAuthenticated ? (
                 <>
                   <Link to={getDashboardLink()}>
                     <Button 
@@ -126,7 +125,7 @@ const Header = () => {
                     <Button 
                       variant="outline" 
                       size="sm"
-                      className={`${isScrolled ? 'border-navy-600 text-navy-600 hover:bg-navy-600 hover:text-white' : 'border-white text-white hover:bg-white hover:text-navy-600'}`}
+                      className={`${isScrolled ? 'border-navy-600 text-navy-600 hover:bg-navy-600 hover:text-navy-600' : 'border-white text-navy-600 hover:bg-white hover:text-navy-600'}`}
                     >
                       Sign In
                     </Button>
@@ -174,7 +173,7 @@ const Header = () => {
                 ))}
                 
                 <div className="pt-6 border-t border-white/20">
-                  {isLoggedIn ? (
+                  {isAuthenticated ? (
                     <div className="space-y-3">
                       <Link 
                         to={getDashboardLink()}
